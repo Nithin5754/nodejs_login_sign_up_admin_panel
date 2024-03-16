@@ -84,6 +84,11 @@ const signUPCreate = async (req, res) => {
   if (password != confirm_password) {
     return res.redirect('/signup');
   }
+  const existingEmail = await User.findOne({ email });
+  if (existingEmail) {
+    return res.redirect('/signup');
+  }
+
   const existingUsers = await User.findOne({ username });
   if (existingUsers) {
     req.session.existingUser = true;
@@ -101,7 +106,7 @@ const signUPCreate = async (req, res) => {
 
     await user.save();
 
-    res.redirect('/login');
+   return res.redirect('/login');
   }
 };
 

@@ -7,23 +7,14 @@ const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
 const noCache = require('nocache')
 
-
-
-
-
 const express = require("express");
 const app = express();
-
-
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 // initalization session
-
 const connectDB = require("./config/connect");
 const loginRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes")
-
 
 // not found middleware
 const notFoundMIddleWare = require('./middleware/notFound');
