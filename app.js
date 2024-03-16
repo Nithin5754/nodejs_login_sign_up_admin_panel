@@ -3,7 +3,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const MongoDBStore = require('connect-mongodb-session')(session)
+
 const { v4: uuidv4 } = require("uuid");
 const noCache = require('nocache')
 
@@ -38,14 +38,6 @@ app.use(cookieParser());
 app.use(noCache());
 
 
-const store = new MongoDBStore({
-  uri: process.env.MONGO_URI,
-  collection: 'sessions'
-})
-
-store.on('error', (error) => {
-  console.error('MongoDB session store error:', error)
-})
 
 
 
@@ -55,7 +47,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 360000 },
-    store,
+   
   }),
 );
 
