@@ -1,0 +1,17 @@
+<form action="/upload" method="POST" enctype="multipart/form-data">
+  <div class="mb-4">
+    <label for="image" class="block text-gray-700 text-sm font-bold mb-2">
+      Choose Image:
+    </label>
+    <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png, .gif" <!-- Specify accepted file types -->
+    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none
+    focus:shadow-outline"
+    />
+  </div>
+  <div class="mb-6">
+    <button type="submit"
+      class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
+      Upload Image
+    </button>
+  </div>
+</form>

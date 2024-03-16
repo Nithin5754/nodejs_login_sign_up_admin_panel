@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light  bg-primary ">
+      <a class="navbar-brand text-white " href="#">Admin Page</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item">
+            <a class="nav-link btn-primary text-white rounded" href="/signout">logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mt-4">
+    <div class=" d-flex flex-row justify-content-between p-4">
+      <div class="col-3">
+        <a class="nav-link text-white bg-danger text-center" href="/signup">create new
+          user</a>
+      </div>
+      <!-- Search Bar -->
+      <div class="input-group col-9 ">
+        <form action="/adminHome" method="GET">
+          <div class="d-flex flex-row">
+            <input type="text" class="form-control" placeholder="Search by username " name="search">
+
+            <button class="btn btn-primary" type="submit">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- table list of username email  -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="bg-dark text-white text-center p-2">index</th>
+          <th class="bg-dark text-white text-center p-2">Username/password/reg-date</th>
+          <th class="bg-dark text-white text-center p-2">action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% user.forEach((item ,index)=> { %>
+          <tr>
+            <td class=" text-center p-2 border-dark">
+              <h6 class="text-center p-2">
+                <%=index+1%>
+              </h6>
+            </td>
+
+            <td class=" text-center p-2 border-dark">
+              <h6 class="p-2">
+                Username:<%= item.username %>
+              </h6>
+
+              <h6 class="p-2 ">
+                Email:<%= item.email %>
+              </h6>
+              <h6 class="p-2">
+                register Time:<%=item.registerTime%>
+              </h6>
+            </td>
+            <td class=" text-center p-2 border-dark">
+              <form action="/adminHome/delete/<%= item._id %>" method="POST">
+                <button type="submit" class="btn btn-danger w-100 mb-3">Delete</button>
+              </form>
+              <% if(item.isBlocked) { %>
+                <form action="/adminHome/unblock/<%= item._id %>" method="POST">
+                  <button class="btn btn-primary w-100 mb-3">
+                    Unblock
+                  </button>
+                </form>
+                <% } else { %>
+                  <form action="/adminHome/block/<%= item._id %>" method="POST">
+                    <button class="btn btn-primary w-100 mb-3">
+                      Block
+                    </button>
+                  </form>
+                  <% } %>
+
+
+                    <button type="button" class="btn btn-warning w-100" data-toggle="modal" data-target="#exampleModal">
+                      <a href="/adminHome/update/<%= item._id %>">Update</a>
+                    </button>
+
+            </td>
+
+          </tr>
+          <% }); %>
+      </tbody>
+    </table>
+
+
+  </main>
+
+  <!-- Include Bootstrap JS (optional, for additional functionality) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
